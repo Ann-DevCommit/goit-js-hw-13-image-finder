@@ -1,7 +1,9 @@
 import './sass/main.scss';
 import cardTemplate from './templates/card-template.hbs';
 import PhotoCardsApi from './js/apiService.js'
-import LoadMoreBtn from './js/load-more-btn.js';
+import LoadMoreBtn from './js/load-more-btn.js'
+import { notice } from '@pnotify/core'
+import '@pnotify/core/dist/BrightTheme.css';
 
 
 const searchFormEl = document.querySelector('.js-search-form')
@@ -24,7 +26,7 @@ function onSearch(e) {
         console.log(e.currentTarget.elements.query.value);
 
   if (photoCardsApi.query === '') {
-    return alert('Введите запрос');
+    return errorMessage('Введите значение для поиска');
   }
 
   loadMoreBtn.show();
@@ -56,11 +58,14 @@ function clearPhotoCardsBlock() {
 }
 
 
-//плавный скролл после рендера очередных 12 изображений
-// const element = document.getElementById('.my-element-selector');
-// element.scrollIntoView({
-//   behavior: 'smooth',
-//   block: 'end',
-// });
-
-// console.log(fetchApi)
+function errorMessage(message) {
+    notice({
+            addClass: 'modal',
+            text: `${message}`,
+            title: false,
+            icon: false,
+            closer: false,
+            sticker: false,
+            delay: 0,
+            });
+}

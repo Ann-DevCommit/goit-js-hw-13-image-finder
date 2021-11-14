@@ -88,3 +88,9 @@ input,
 .button > .spinner.is-hidden {
   display: none;
 }
+
+.modal {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+}
