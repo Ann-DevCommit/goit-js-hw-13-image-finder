@@ -10,15 +10,20 @@ export default class PhotoCardsApi {
     
     fetchPhotoCards() {
         
-        return fetch(`https://pixabay.com/api/?image_type=photo&orientation=horizontal&q=${this.searchQuery}&page=${this.page}&per_page=12&key=24333864-29a9dd6df16fde5fb5603859e`)
-            .then(response => response.json())
-            .then(photoCards => {
-                this.incrementPage();
-                console.log(photoCards)
-                console.log(photoCards.hits)
-                    return photoCards.hits;
-                }
-            );
+      return fetch(`https://pixabay.com/api/?image_type=photo&orientation=horizontal&q=${this.searchQuery}&page=${this.page}&per_page=12&key=24333864-29a9dd6df16fde5fb5603859e`)
+        .then(response => {
+           console.log(response)
+          if (response.ok) return response.json()
+          throw new Error()
+        })
+        .then(photoCards => {
+          this.incrementPage();
+          // console.log(photoCards)
+          // console.log(photoCards.hits)
+          return photoCards.hits;
+        }
+          
+        );
   }
 
     incrementPage() {
